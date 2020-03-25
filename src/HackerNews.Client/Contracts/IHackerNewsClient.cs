@@ -6,7 +6,7 @@ using HackerNews.Client.Models;
 
 namespace HackerNews.Client.Contracts
 {
-    public interface IHackerNewsClient
+    internal interface IHackerNewsClient
     {
         [Get("/topstories.json")]
         Task<ApiResponse<IEnumerable<long>>> GetTopStories(CancellationToken cancellationToken);

@@ -7,7 +7,7 @@ using HackerNews.Client.Models;
 
 namespace HackerNews.Client
 {
-    public class Runner
+    internal class Runner
     {
         private readonly IHackerNewsClient _client;
 
@@ -21,13 +21,13 @@ namespace HackerNews.Client
             var storyIds = await _client.GetTopStories(cancellationToken);
                 
             var tasks = storyIds.Content
-                                .Take(15)
-                                .Select(id => _client.GetStory(new StoryId { Value = id }, cancellationToken))
-                                .ToArray();
+                .Take(15)
+                .Select(id => _client.GetStory(new StoryId { Value = id }, cancellationToken))
+                .ToArray();
             
-            await Task.WhenAll(tasks);
+            var stories = await Task.WhenAll(tasks);
 
-            for (var i = 0; i < tasks.Length; i++)
+            for (var i = 0; i < stories.Length; i++)
             {
                 var task = tasks[i];
                 Console.ForegroundColor = ConsoleColor.White;
