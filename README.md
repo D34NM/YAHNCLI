@@ -19,3 +19,5 @@ Navigate to the directory where the output is.
 ```bash
 dotnet {directory}/HackerNews.Client.dll
 ```
+
+![Preview](preview.png)
