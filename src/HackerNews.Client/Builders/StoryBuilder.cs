@@ -23,11 +23,12 @@ namespace HackerNews.Client.Builders
             new Action(() => 
             {
                 Console.WriteLine();
-                string orderNumberText = $"{_orderNumber}. ";
+                string orderNumberText = _orderNumber.ToString();
                 new TextBuilder(orderNumberText)
                     .WithForegroundColor(ConsoleColor.White)
                     .DoesntEndWithNewLine()
-                    .WithLeftPadding(orderNumberText.Length + 2 - $"{_orderNumber}".Length)
+                    .WithLeftPadding(orderNumberText.Length + 2 - orderNumberText.Length)
+                    .WithRightPadding(1)
                     .Build()
                     .Invoke();
                 new TextBuilder(_response.Title)
@@ -35,15 +36,17 @@ namespace HackerNews.Client.Builders
                     .DoesntEndWithNewLine()
                     .Build()
                     .Invoke();
-                new TextBuilder($" ({_response.Url})")
+                string urlText = _response.Url.ToString();
+                new TextBuilder(urlText)
                     .WithForegroundColor(ConsoleColor.Blue)
                     .EndsWithNewLine()
+                    .WithLeftPadding(1)
                     .Build()
                     .Invoke();
                 string pointsText = $"{_response.Score} points";
                 new TextBuilder(pointsText)
                     .WithForegroundColor(ConsoleColor.Cyan)
-                    .WithLeftPadding(pointsText.Length + orderNumberText.Length + (2 - $"{_orderNumber}".Length))
+                    .WithLeftPadding(orderNumberText.Length + (2 - _orderNumber.ToString().Length))
                     .EndsWithNewLine()
                     .Build()
                     .Invoke();

@@ -62,14 +62,14 @@ namespace HackerNews.Client.Builders
             return new Action(() => 
             {
                 Console.ForegroundColor = _foregroundColor;
-                
+
                 if (_paddingLeft > 0)
                 {
-                    _textToPrint = _textToPrint.PadLeft(_paddingLeft, ' ');
+                    _textToPrint = _textToPrint.PadLeft(_textToPrint.Length + _paddingLeft, ' ');
                 }
                 if (_paddingRight > 0)
                 {
-                    _textToPrint = _textToPrint.PadRight(_paddingRight, ' ');
+                    _textToPrint = _textToPrint.PadRight(_textToPrint.Length + _paddingRight, ' ');
                 }
 
                 var action = _consoleActionMapping[_endsWithNewLine];
