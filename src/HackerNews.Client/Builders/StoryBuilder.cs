@@ -23,11 +23,11 @@ namespace HackerNews.Client.Builders
             new Action(() => 
             {
                 Console.WriteLine();
-                string orderNumberText = _orderNumber.ToString();
+                string orderNumberText = $"{_orderNumber}.";
                 new TextBuilder(orderNumberText)
                     .WithForegroundColor(ConsoleColor.White)
                     .DoesntEndWithNewLine()
-                    .WithLeftPadding(orderNumberText.Length + 2 - orderNumberText.Length)
+                    .WithLeftPadding(2 - orderNumberText.Length)
                     .WithRightPadding(1)
                     .Build()
                     .Invoke();
