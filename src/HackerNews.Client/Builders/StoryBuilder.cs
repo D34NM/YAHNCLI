@@ -31,18 +31,27 @@ namespace HackerNews.Client.Builders
             new Action(() =>
             {
                 Console.WriteLine();
-                Console.ForegroundColor = ConsoleColor.White;
-                Console.Write($"{_orderNumber}. ");
-                int totalWidth = 2 - $"{_orderNumber}".Length;
-                string value1 = $"{_response.Title}".PadLeft(totalWidth);
-                Console.Write(value1);
+                new TextBuilder($"{_orderNumber}. ")
+                    .WithForegroundColor(ConsoleColor.White)
+                    .DoesntEndWithNewLine()
+                    .WithLeftPadding(2 - $"{_orderNumber}".Length)
+                    .Build()
+                    .Invoke();
+                new TextBuilder(_response.Title)
+                    .WithForegroundColor(ConsoleColor.White)
+                    .DoesntEndWithNewLine()
+                    .Build()
+                    .Invoke();
             });
 
         private Action PrintUrl() =>
             new Action(() =>
             {
-                Console.ForegroundColor = ConsoleColor.Blue;
-                Console.WriteLine($" ({_response.Url})");
+                new TextBuilder($" ({_response.Url})")
+                    .WithForegroundColor(ConsoleColor.Blue)
+                    .EndsWithNewLine()
+                    .Build()
+                    .Invoke();
             });
 
         private Action PrintPoints() =>
