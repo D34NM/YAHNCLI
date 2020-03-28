@@ -3,7 +3,7 @@ using System;
 
 namespace HackerNews.Client.Builders
 {
-    public class TextBuilder
+    internal class TextBuilder
     {
         private readonly Dictionary<bool, Action<string>> _consoleActionMapping = new Dictionary<bool, Action<string>>
         {
@@ -62,10 +62,18 @@ namespace HackerNews.Client.Builders
             return new Action(() => 
             {
                 Console.ForegroundColor = _foregroundColor;
-                var paddedLeftText = _textToPrint.PadLeft(_paddingLeft, ' ');
-                var paddedLeftAndRightText = _textToPrint.PadRight(_paddingRight, ' ');
+                
+                if (_paddingLeft > 0)
+                {
+                    _textToPrint = _textToPrint.PadLeft(_paddingLeft, ' ');
+                }
+                if (_paddingRight > 0)
+                {
+                    _textToPrint = _textToPrint.PadRight(_paddingRight, ' ');
+                }
+
                 var action = _consoleActionMapping[_endsWithNewLine];
-                action.Invoke(paddedLeftAndRightText);
+                action.Invoke(_textToPrint);
             });
         }
     }

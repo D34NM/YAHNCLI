@@ -22,19 +22,12 @@ namespace HackerNews.Client.Builders
         public Action Build() => 
             new Action(() => 
             {
-                PrintTitle().Invoke();
-                PrintUrl().Invoke();
-                PrintPoints().Invoke();
-            });
-
-        private Action PrintTitle() =>
-            new Action(() =>
-            {
                 Console.WriteLine();
-                new TextBuilder($"{_orderNumber}. ")
+                string orderNumberText = $"{_orderNumber}. ";
+                new TextBuilder(orderNumberText)
                     .WithForegroundColor(ConsoleColor.White)
                     .DoesntEndWithNewLine()
-                    .WithLeftPadding(2 - $"{_orderNumber}".Length)
+                    .WithLeftPadding(orderNumberText.Length + 2 - $"{_orderNumber}".Length)
                     .Build()
                     .Invoke();
                 new TextBuilder(_response.Title)
@@ -42,28 +35,18 @@ namespace HackerNews.Client.Builders
                     .DoesntEndWithNewLine()
                     .Build()
                     .Invoke();
-            });
-
-        private Action PrintUrl() =>
-            new Action(() =>
-            {
                 new TextBuilder($" ({_response.Url})")
                     .WithForegroundColor(ConsoleColor.Blue)
                     .EndsWithNewLine()
                     .Build()
                     .Invoke();
-            });
-
-        private Action PrintPoints() =>
-            new Action(() =>
-            {
-                Console.ForegroundColor = ConsoleColor.Cyan;
-                int totalWidth = 2 - $"{_orderNumber}".Length;
-                var value = $"{_orderNumber}. ".Length + totalWidth;
-                Console.ForegroundColor = ConsoleColor.DarkCyan;
-                var v = $"{_response.Score} points".PadLeft(value);
-                Console.Write(v);
-                Console.WriteLine();
+                string pointsText = $"{_response.Score} points";
+                new TextBuilder(pointsText)
+                    .WithForegroundColor(ConsoleColor.Cyan)
+                    .WithLeftPadding(pointsText.Length + orderNumberText.Length + (2 - $"{_orderNumber}".Length))
+                    .EndsWithNewLine()
+                    .Build()
+                    .Invoke();
             });
     }
 }
