@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using HackerNews.Client.Contracts;
 using System.Linq;
 using HackerNews.Client.Models;
-using HackerNews.Client.Builders;
 using HackerNews.Client.Extensions;
 
 namespace HackerNews.Client
@@ -30,10 +29,7 @@ namespace HackerNews.Client
 
             stories
                 .Select((story, index) => 
-                    new StoryBuilder()
-                        .WithOrderNumber(index + 1)
-                        .For(story.Content)
-                        .Build())
+                    story.Content.ToAction(index + 1))
                 .RunAll();
         }
     }
